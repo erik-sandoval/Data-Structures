@@ -151,7 +151,21 @@ class DoublyLinkedList:
 
     """Returns the highest value currently in the list"""
 
-    def 
+    def get_index(self, index):
+        if index > self.length:
+            return None
+        if index == self.length:
+            return self.tail.value
+
+        counter = 1
+        node = self.head
+
+        while node.next:
+            if counter == index:
+                return node.value
+            node = node.next
+            counter += 1
+        return None
 
     def get_max(self):
         if self.head == None:
@@ -175,4 +189,5 @@ dll.add_to_tail(46)
 dll.add_to_tail(42)
 dll.add_to_tail(48)
 
-print(dll.get_max())
+print(dll.get_index(4))
+# print(dll.get_max())
