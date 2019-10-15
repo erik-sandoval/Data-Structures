@@ -8,7 +8,8 @@ class LRUCache:
     """
 
     def __init__(self, limit=10):
-        pass
+        self.size = 0
+        self.storage = {}
 
     """
     Retrieves the value associated with the given key. Also
