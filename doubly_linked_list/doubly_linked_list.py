@@ -8,6 +8,8 @@ class ListNode:
         self.prev = prev
         self.next = next
 
+    def __str__(self):
+        return f"{self.value}, {self.prev}, {self.next}"
     """Wrap the given value in a ListNode and insert it
     after this node. Note that this node could already
     have a next node it is point to."""
@@ -48,6 +50,9 @@ class DoublyLinkedList:
         self.tail = node
         self.length = 1 if node is not None else 0
 
+    def __str__(self):
+        f"{self.head}, {self.tail}, {self.length}"
+
     def __len__(self):
         return self.length
 
@@ -57,12 +62,12 @@ class DoublyLinkedList:
 
     def add_to_head(self, value):
         new_node = ListNode(value)
-        if self.head == None:
+        if not self.head:
             self.head = new_node
             self.tail = new_node
         else:
             self.head.prev = new_node
-            self.head.next = self.head
+            new_node.next = self.head
             self.head = new_node
         self.length += 1
 
@@ -71,14 +76,14 @@ class DoublyLinkedList:
     Returns the value of the removed Node."""
 
     def remove_from_head(self):
-        if self.head == None:
+        if self.length == 0:
             return None
         old_node = self.head
-        if self.length == 1:
+        if self.head is self.tail:
             self.head = None
             self.tail = None
         else:
-            self.head = self.head.next
+            self.head = old_node.next
             self.head.prev = None
             old_node.next = None
         self.length -= 1
@@ -128,7 +133,6 @@ class DoublyLinkedList:
     List and inserts it as the new tail node of the List."""
 
     def move_to_end(self, node):
-        # if self.tail == None:
         pass
 
     """
@@ -137,22 +141,21 @@ class DoublyLinkedList:
     """
 
     def delete(self, node):
-        print(node)
-        if node == self.head.value:
-            return self.remove_from_head()
-        if node == self.tail.value:
-            return self.remove_from_tail()
-        # search_node = self.head.next
-
-        # while(search_node.next):
-        #     if (node.value == search_node):
-        #         old_node = search_node
-        #         search_node.next = search_node.prev
+        self.length -= 1
+        if node == self.head:
+            self.remove_from_head()
+            return None
+        elif node == self.tail:
+            self.remove_from_tail()
+            return None
+        else:
+            node.delete()
 
     """Returns the highest value currently in the list"""
 
     def get_index(self, index):
-        if index > self.length | index < 1:
+
+        if index > self.length or index < 1:
             return None
         if index == self.length:
             return self.tail.value
@@ -198,5 +201,6 @@ dll.add_to_tail(53)
 dll.add_to_tail(71)
 dll.add_to_tail(88)
 
-print(dll.get_index(3))
-# print(dll.get_max())
+print(dll.delete(dll.head))
+
+print(dll.get_index(1))
