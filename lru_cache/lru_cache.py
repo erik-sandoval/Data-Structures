@@ -26,7 +26,9 @@ class LRUCache:
 
     def get(self, key):
         if key in self.storage:
-            return self.dll.move_to_front(self.storage[key])
+            node = self.storage[key].value
+            self.dll.move_to_front(self.storage[key])
+            return node[1]
         else:
             return None
 
@@ -43,46 +45,18 @@ class LRUCache:
 
     def set(self, key, value):
         if key in self.storage:
-            self.dll.delete(self.storage[key])
-            self.storage[key] = self.dll.add_to_head(value)
+            node = self.storage[key]
+            node.value = (key, value)
+            self.dll.move_to_front(node)
             return
 
         if self.size == self.limit:
-            old_node = self.dll.remove_from_tail()
-            self.storage.pop(old_node, None)
+            node = self.dll.tail
+            node_value = node.value
+            del self.storage[node_value[0]]  # tuple(key, value)
+            self.dll.remove_from_tail()
             self.size -= 1
 
-        self.storage[key] = self.dll.add_to_head(value)
+        self.dll.add_to_head((key, value))
+        self.storage[key] = self.dll.head
         self.size += 1
-
-
-# test = {}
-
-# test[0] = 0
-# test[2] = 2
-# test[3] = 3
-# test[4] = 4
-# test[5] = 5
-# test[1] = 1
-
-# print(test)
-
-
-# test[3] = 1
-
-# print(test)
-test = LRUCache(3)
-
-test.set(1, 4)
-test.set(2, 2)
-test.set(3, 72)
-test.set(4, 6)
-test.set(8, 7)
-test.set(8, 12)
-test.set(8, 3434)
-test.set(128, 3434)
-
-
-print(test.storage[8].value)
-print(test.size, len(test.storage))
-print(test.dll.length)
