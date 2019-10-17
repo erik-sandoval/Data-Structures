@@ -1,30 +1,54 @@
-from dll_stack import Stack
-from dll_queue import Queue
-import sys
-sys.path.append('../queue_and_stack')
-
-
 class BinarySearchTree:
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
 
+    def __str__(self):
+        return f"value: {self.value}, left: {self.left}, right: {self.right}"
+
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+
+        if value > self.value:
+            if not self.right:
+                self.right = BinarySearchTree(value)
+            else:
+                self.right.insert(value)
+
+        if value <= self.value:
+            if self.left == None:
+                self.left = BinarySearchTree(value)
+            else:
+                self.left.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        if self.value == target:
+            return True
+        if self.value < target:
+            if not self.left:
+                return False
+            self.left.contains(target)
+        if self.value > target:
+            if not self.right:
+                return False
+            self.right.contains(target)
 
     # Return the maximum value found in the tree
+
     def get_max(self):
-        pass
+        max = self.value
+        if not self.right:
+            return max
+        if self.value > max:
+            max = self.value
+        return self.right.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
+
     def for_each(self, cb):
         pass
 
@@ -55,3 +79,12 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+
+bss = BinarySearchTree(4)
+
+bss.insert(3)
+bss.insert(2)
+
+print(bss.left)
+print(bss.contains(2))
