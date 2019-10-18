@@ -3,6 +3,7 @@ class BinarySearchTree:
         self.value = value
         self.left = None
         self.right = None
+        self.frequency = 0
 
     def __str__(self):
         return f"value: {self.value}, left: {self.left}, right: {self.right}"
@@ -11,17 +12,20 @@ class BinarySearchTree:
     def insert(self, value):
 
         if self.value == value:
+            self.frequency += 1
             return
 
         if value > self.value:
             if not self.right:
                 self.right = BinarySearchTree(value)
+                self.right.frequency += 1
             else:
                 self.right.insert(value)
 
         if value < self.value:
             if self.left == None:
                 self.left = BinarySearchTree(value)
+                self.left.frequency += 1
             else:
                 self.left.insert(value)
 
