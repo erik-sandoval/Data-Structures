@@ -90,12 +90,21 @@ class BinarySearchTree:
     # in an iterative depth first traversal
 
     def dft_print(self, node):
-        pass
+        visited = []
 
+        def helper(node):
+            if node.left:
+                helper(node.left)
+            visited.append(node.value)
+            if node.right:
+                helper(node.right)
+
+        helper(node)
+
+        return visited
     # STRETCH Goals -------------------------
     # Note: Research may be required
 
-    # Print In-order recursive DFT
     def pre_order_dft(self, node):
         visited = []
 
@@ -110,7 +119,18 @@ class BinarySearchTree:
         return visited
 
     def post_order_dft(self, node):
-        pass
+        visited = []
+
+        def helper(node):
+            if node.left:
+                helper(node.left)
+            if node.right:
+                helper(node.right)
+            visited.append(node.value)
+
+        helper(node)
+
+        print(visited)
 
 
 bss = BinarySearchTree(4)
@@ -122,4 +142,4 @@ bss.insert(6)
 bss.insert(3)
 bss.insert(2)
 
-bss.pre_order_dft(bss)
+print(bss.dft_print(bss))
