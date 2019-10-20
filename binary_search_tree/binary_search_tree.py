@@ -65,10 +65,22 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        visited = []
+
+        def helper(node):
+            if not node:
+                return
+            helper(node.left)
+            visited.append(node.value)
+            helper(node.right)
+
+        helper(node)
+
+        return visited
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
+
     def bft_print(self, node):
         queue = []
         visited = []
@@ -102,6 +114,7 @@ class BinarySearchTree:
         helper(node)
 
         return visited
+
     # STRETCH Goals -------------------------
     # Note: Research may be required
 
@@ -129,8 +142,7 @@ class BinarySearchTree:
             visited.append(node.value)
 
         helper(node)
-
-        print(visited)
+        return visited
 
 
 bss = BinarySearchTree(4)
@@ -141,5 +153,6 @@ bss.insert(7)
 bss.insert(6)
 bss.insert(3)
 bss.insert(2)
+bss.insert(9)
 
 print(bss.dft_print(bss))
