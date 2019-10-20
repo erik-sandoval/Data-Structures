@@ -3,7 +3,9 @@ class Heap:
         self.storage = []
 
     def insert(self, value):
-        pass
+        self.storage.append(value)
+        index = len(self.storage)-1
+        self._bubble_up(index)
 
     def delete(self):
         pass
@@ -15,7 +17,24 @@ class Heap:
         pass
 
     def _bubble_up(self, index):
-        pass
+        if index < 1:
+            return
+
+        parent = (index-1)//2
+        child = index
+
+        if self.storage[parent] < self.storage[child]:
+            self.storage[parent], self.storage[child] = self.storage[child], self.storage[parent]
+            index = parent
+            self._bubble_up(index)
 
     def _sift_down(self, index):
         pass
+
+
+heap = Heap()
+
+heap.insert(11)
+heap.insert(12)
+heap.insert(13)
+heap.insert(110)
