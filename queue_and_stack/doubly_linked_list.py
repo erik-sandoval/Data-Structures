@@ -1,3 +1,7 @@
+"""Each ListNode holds a reference to its previous node
+as well as its next node in the List."""
+
+
 class ListNode:
     def __init__(self, value, prev=None, next=None):
         self.value = value
@@ -67,8 +71,6 @@ class DoublyLinkedList:
             self.head = new_node
         self.length += 1
 
-        return new_node
-
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
@@ -131,7 +133,6 @@ class DoublyLinkedList:
         value = node.value
         self.delete(node)
         self.add_to_head(value)
-        return value
 
     """Removes the input node from its current spot in the
     List and inserts it as the new tail node of the List."""
