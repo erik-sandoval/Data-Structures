@@ -11,10 +11,14 @@ class Heap:
         pass
 
     def get_max(self):
-        pass
+        max = self.storage[0]
+        for i in range(len(self.storage)):
+            if self.storage[i] > max:
+                max = self.storage[i]
+        return max
 
     def get_size(self):
-        pass
+        return len(self.storage)
 
     def _bubble_up(self, index):
         if index < 1:
@@ -34,7 +38,17 @@ class Heap:
 
 heap = Heap()
 
-heap.insert(11)
-heap.insert(12)
-heap.insert(13)
-heap.insert(110)
+heap.insert(6)
+heap.insert(8)
+heap.insert(10)
+heap.insert(9)
+heap.insert(1)
+heap.insert(9)
+heap.insert(9)
+heap.insert(5)
+heap.insert(3000)
+
+print(heap.get_max())
+print(heap.get_size())
+# print(heap.storage)
+# print(range(len(heap.storage)))
