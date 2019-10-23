@@ -3,12 +3,21 @@ class Heap:
         self.storage = []
 
     def insert(self, value):
+        # if value in self.storage:
+        #     return
+
         self.storage.append(value)
         index = len(self.storage)-1
         self._bubble_up(index)
 
     def delete(self):
-        pass
+        if self.get_size() == 1:
+            return self.storage.pop()
+        deleted_val = self.storage[0]
+        self.storage[0] = self.storage[-1]
+        self.storage.pop()
+        self._sift_down(0)
+        return deleted_val
 
     def get_max(self):
         max = self.storage[0]
@@ -33,22 +42,21 @@ class Heap:
             self._bubble_up(index)
 
     def _sift_down(self, index):
-        pass
+        child1 = 2 * index + 1
+        child2 = 2 * index + 2
 
-
-heap = Heap()
-
-heap.insert(6)
-heap.insert(8)
-heap.insert(10)
-heap.insert(9)
-heap.insert(1)
-heap.insert(9)
-heap.insert(9)
-heap.insert(5)
-heap.insert(3000)
-
-print(heap.get_max())
-print(heap.get_size())
-# print(heap.storage)
-# print(range(len(heap.storage)))
+        max = child1
+        if (child2 < self.get_size()):
+            if (self.storage[max] < self.storage[child2]):
+                max = child2
+            if self.storage[index] < self.storage[max]:
+                self.storage[index], self.storage[max] = self.storage[max], self.storage[index]
+                return self._sift_down(index + 1)
+            else:
+                return
+        if (child1 < self.get_size()):
+            if self.storage[index] < self.storage[max]:
+                self.storage[index], self.storage[max] = self.storage[max], self.storage[index]
+                return self._sift_down(index + 1)
+            else:
+                return
